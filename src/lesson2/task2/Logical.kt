@@ -17,12 +17,9 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean  {
-   return when {
-        number % 10 + number % 100 == number % 1000 + number % 10000 -> true
-        else -> false
-    }
-}
+fun isNumberHappy(number: Int): Boolean =
+        number % 10 + (number % 100) / 10 == number / 1000 + (number % 1000) / 100
+
 /**
  * Простая
  *
@@ -30,7 +27,15 @@ fun isNumberHappy(number: Int): Boolean  {
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
+   return when {
+        Math.abs(x1 - x2) == Math.abs(y1 - y2) -> true
+        x1 == x2 ->  true
+        y1 == y2 ->  true
+        else -> false
+    }
+}
+
 
 /**
  * Средняя
@@ -40,7 +45,13 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = TODO()
+                 x2: Double, y2: Double, r2: Double): Boolean {
+    return when {
+        Math.abs(x1 + r1) <= Math.abs(x2 + r2) &&
+                Math.abs(y1 + r1) <= Math.abs(y2 + r2) -> true
+        else -> false
+    }
+}
 
 /**
  * Средняя
@@ -51,14 +62,6 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-   return when {
-        a == r && b == s -> true
-        b == r && a == s -> true
-        a == r && c == s -> true
-        c == r && a == s -> true
-        b == r && c == s -> true
-        c == r && b == s -> true
-        else -> false
-    }
-}
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+        Math.min(r,s) >= Math.min(Math.min(a,b),c) &&
+                ((a + b + c) - Math.min(Math.min(a,b),c) - Math.max(Math.max(a,b),c) <= Math.max(r,s))

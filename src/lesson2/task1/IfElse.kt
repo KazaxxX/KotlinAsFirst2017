@@ -2,6 +2,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson6.task2.kingMoveNumber
 
 /**
  * Пример
@@ -48,7 +49,19 @@ fun ageDescription(age: Int): String =  when {
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+    val halfway = (v1 * t1 + v2 * t2 + v3 * t3) / 2
+    val s1 = v1 * t1
+    val s2 = v2 * t2
+    val s3 = v3 *t3
+    return when {
+          halfway < s1 -> halfway / v1
+          halfway < s1 + s2 -> (halfway - s1) / v2
+        else   -> (halfway - s1 - s2) / v3
+
+
+    }
+}
 
 /**
  * Простая
@@ -87,7 +100,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+                          bishopX: Int, bishopY: Int): Int {
+    return when {
+        kingX == rookX || kingY == rookY &&
+                Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
+        kingX == rookX || kingY == rookY -> 1
+        Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
+        else -> 0
+    }
+}
 
 /**
  * Простая
@@ -97,7 +118,15 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    return when {
+        a > b + c || b > a + c || c > a + b -> -1
+        a * a == b * b + c * c  || a * a + b * b == c * c ||  b * b == a * a + c * c -> 1
+        a * a > b * b + c * c  || a * a + b * b < c * c ||  b * b > a * a + c * c -> 2
+        a * a < b * b + c * c  || a * a + b * b > c * c ||  b * b < a * a + c * c -> 0
+        else -> -1
+    }
+}
 
 /**
  * Средняя
@@ -109,14 +138,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        (a in c..d) && (b in c..d) -> b - a
-        (c in a..b) && (d in a..b) -> d - c
-            (a in c..d) -> d - a
-             (b == c) -> 0
-              (b in c..d) -> b - c
-               (c in a..b) -> c - a
-                (d in a..b) -> d - a
-                 else -> -1
-
+        b < c || a > d -> -1
+          else -> Math.abs (Math.max(a,c) - Math.min(b,d))
     }
 }
