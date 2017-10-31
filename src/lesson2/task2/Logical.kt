@@ -45,13 +45,9 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean {
-    return when {
-        Math.abs(x1 + r1) <= Math.abs(x2 + r2) &&
-                Math.abs(y1 + r1) <= Math.abs(y2 + r2) -> true
-        else -> false
-    }
-}
+                 x2: Double, y2: Double, r2: Double): Boolean =
+        Math.sqrt(Math.pow(x1 - x2, 2.0) + Math.pow(y1 - y2, 2.0)) + r1 <= r2
+
 
 /**
  * Средняя

@@ -56,8 +56,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s3 = v3 *t3
     return when {
           halfway < s1 -> halfway / v1
-          halfway < s1 + s2 -> (halfway - s1) / v2
-        else   -> (halfway - s1 - s2) / v3
+          halfway < s1 + s2 -> t1 + (halfway - s1) / v2
+           else   -> t1 + t2 + (halfway - s1 - s2) / v3
 
 
     }
@@ -83,7 +83,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                  kingX == rookX2 -> 2
                  kingY == rookY2 -> 2
 
-                 else -> 0
+                   else -> 0
              }
 
 }
@@ -103,10 +103,10 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     return when {
         kingX == rookX || kingY == rookY &&
-                Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
+        Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
         kingX == rookX || kingY == rookY -> 1
         Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
-        else -> 0
+            else -> 0
     }
 }
 
@@ -124,7 +124,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         a * a == b * b + c * c  || a * a + b * b == c * c ||  b * b == a * a + c * c -> 1
         a * a > b * b + c * c  || a * a + b * b < c * c ||  b * b > a * a + c * c -> 2
         a * a < b * b + c * c  || a * a + b * b > c * c ||  b * b < a * a + c * c -> 0
-        else -> -1
+           else -> -1
     }
 }
 
@@ -138,7 +138,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        b < c || a > d -> -1
-          else -> Math.abs (Math.max(a,c) - Math.min(b,d))
+            b < c || a > d -> -1
+             else -> Math.abs (Math.max(a,c) - Math.min(b,d))
     }
 }
