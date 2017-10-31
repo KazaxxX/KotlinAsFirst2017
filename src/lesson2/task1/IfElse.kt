@@ -103,8 +103,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     return when {
         kingX == rookX || kingY == rookY &&
+        Math.abs(kingX - bishopX) !== Math.abs(kingY - bishopY) -> 1
+        kingX == rookX || kingY == rookY &&
         Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
-        kingX == rookX || kingY == rookY -> 1
         Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
             else -> 0
     }
