@@ -1,6 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import lesson1.task1.numberRevert
+import lesson1.task1.sqr
+
 /**
  * Пример
  *
@@ -60,8 +63,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int = TODO()
-
+fun digitNumber(n: Int): Int {
+    var d = 0
+    var number = n
+    if (number == 0) return 1
+      while (number != 0){
+          d++
+          number = number / 10
+   }
+    return d
+}
 /**
  * Простая
  *
@@ -83,7 +94,14 @@ fun lcm(m: Int, n: Int): Int = TODO()
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var d = 1
+    var num = n
+        do{
+            d++
+        }while (num % d != 0)
+    return d
+}
 
 /**
  * Простая
@@ -151,7 +169,17 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var num = n
+    val d = n % 10
+
+    while (num != 0) {
+        if (num % 10 != d)
+            return true
+        num /= 10
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -161,6 +189,8 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int = TODO()
+
+
 
 /**
  * Сложная
