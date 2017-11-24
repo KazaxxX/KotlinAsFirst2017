@@ -86,7 +86,7 @@ fun dateDigitToStr(digital: String): String {
         val year = date[2].toInt()
         if (day in 1 .. 31 && mon in 1 .. 12 && date.size == 3)
             return "$day ${tes[mon - 1]} $year"
-    } catch (e: Exception) {
+    } catch (e: NumberFormatException) {
         return ""
     }
     return ""

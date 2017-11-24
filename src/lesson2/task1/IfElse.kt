@@ -53,11 +53,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val halfway = (v1 * t1 + v2 * t2 + v3 * t3) / 2
     val s1 = v1 * t1
     val s2 = v2 * t2
-    val s3 = v3 *t3
     return when {
           halfway < s1 -> halfway / v1
           halfway < s1 + s2 -> t1 + (halfway - s1) / v2
-           else   -> t1 + t2 + (halfway - s1 - s2) / v3
+          else   -> t1 + t2 + (halfway - s1 - s2) / v3
 
 
     }
@@ -74,19 +73,19 @@ fun timeForHalfWay(t1: Double, v1: Double,
  */
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int  {
-             return when {
-                 kingX == rookX1 && kingY == rookY2 -> 3
-                 kingX == rookX2 && kingY == rookY1 -> 3
-                 kingX == rookX1 -> 1
-                 kingY == rookY1 -> 1
-                 kingX == rookX2 -> 2
-                 kingY == rookY2 -> 2
+                       rookX2: Int, rookY2: Int): Int  =
+        when {
+            kingX == rookX1 && kingY == rookY2 -> 3
+            kingX == rookX2 && kingY == rookY1 -> 3
+            kingX == rookX1 -> 1
+            kingY == rookY1 -> 1
+            kingX == rookX2 -> 2
+            kingY == rookY2 -> 2
 
-                   else -> 0
-             }
+            else -> 0
+        }
 
-}
+
 
 /**
  * Простая
@@ -102,12 +101,12 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
     return when {
-        kingX == rookX || kingY == rookY &&
-        Math.abs(kingX - bishopX) !== Math.abs(kingY - bishopY) -> 1
-        kingX == rookX || kingY == rookY &&
-        Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
-        Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
-            else -> 0
+        (kingX == rookX || kingY == rookY) &&
+         Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 3
+        (kingX == rookX || kingY == rookY) &&
+         Math.abs(kingX - bishopX) !== Math.abs(kingY - bishopY) -> 1
+         Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
+         else -> 0
     }
 }
 
@@ -125,7 +124,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         a * a == b * b + c * c  || a * a + b * b == c * c ||  b * b == a * a + c * c -> 1
         a * a > b * b + c * c  || a * a + b * b < c * c ||  b * b > a * a + c * c -> 2
         a * a < b * b + c * c  || a * a + b * b > c * c ||  b * b < a * a + c * c -> 0
-           else -> -1
+        else -> -1
     }
 }
 
@@ -139,7 +138,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-            b < c || a > d -> -1
-             else -> Math.abs (Math.max(a,c) - Math.min(b,d))
+        b < c || a > d -> -1
+        else -> Math.abs (Math.max(a,c) - Math.min(b,d))
     }
 }
