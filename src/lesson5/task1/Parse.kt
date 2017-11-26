@@ -79,7 +79,6 @@ fun dateDigitToStr(digital: String): String {
     val tes = listOf<String>("января", "февраля", "марта", "апреля", "мая",
             "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val date = digital.split(".")
-
     try {
         val day = date[0].toInt()
         val mon = date[1].toInt()
@@ -154,11 +153,11 @@ fun firstDuplicateIndex(str: String): Int {
     if (str.isEmpty())
         return -1
     val strA = str.trim().split(" ")
-    var ind = 0
+    var index = 0
     for (i in 0 until strA.size - 1) {
         if (strA[i].toLowerCase() == strA[i + 1].toLowerCase())
-            return ind
-        ind += strA[i].length + 1
+            return index
+        index += strA[i].length + 1
     }
     return -1
 }
