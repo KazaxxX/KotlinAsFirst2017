@@ -1,8 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson6.task2
 
-import lesson3.task1.isCoPrime
-
+import java.lang.Math.abs
+import java.lang.Math.max
 
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
@@ -156,7 +156,12 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int = TODO()
+fun kingMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside())
+        throw IllegalArgumentException()
+    return max(abs(start.row - end.row), abs(start.column - end.column))
+
+}
 
 /**
  * Сложная
