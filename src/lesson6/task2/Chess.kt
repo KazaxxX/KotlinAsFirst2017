@@ -1,6 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson6.task2
 
+import lesson3.task1.isCoPrime
+
+
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -21,7 +24,21 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        if(!inside()) return ""
+        val column = when (column){
+            1 -> "a"
+            2 -> "b"
+            3 -> "c"
+            4 -> "d"
+            5 -> "e"
+            6 -> "f"
+            7 -> "g"
+            8 -> "h"
+            else -> false
+        }
+        return "$column$row"
+    }
 }
 
 /**
