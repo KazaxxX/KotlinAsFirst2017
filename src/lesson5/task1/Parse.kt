@@ -67,13 +67,13 @@ fun main(args: Array<String>) {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateStrToDigit(str: String): String {
-    val names = listOf("января", "февраля", "марта", "апреля", "мая",
+    val name = listOf("января", "февраля", "марта", "апреля", "мая",
             "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val date = str.split(" ")
 
     try {
         val day = date[0].toInt()
-        val mon = names.indexOf(date[1]) + 1
+        val mon = name.indexOf(date[1]) + 1
         val year = date[2].toInt()
         if (day in 1 .. 31 && mon in 1 .. 12 && date.size == 3)
             return String.format("%02d.%02d.%d", day, mon, year)
@@ -91,7 +91,7 @@ fun dateStrToDigit(str: String): String {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateDigitToStr(digital: String): String {
-    val names = listOf<String>("января", "февраля", "марта", "апреля", "мая",
+    val name = listOf<String>("января", "февраля", "марта", "апреля", "мая",
             "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val date = digital.split(".")
     try {
@@ -99,7 +99,7 @@ fun dateDigitToStr(digital: String): String {
         val mon = date[1].toInt()
         val year = date[2].toInt()
         if (day in 1 .. 31 && mon in 1 .. 12 && date.size == 3)
-            return "$day ${names [mon - 1]} $year"
+            return "$day ${name [mon - 1]} $year"
     } catch (e: Exception) {
         return ""
     }
