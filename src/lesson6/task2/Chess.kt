@@ -1,9 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson6.task2
 
-import java.lang.Math.abs
-import java.lang.Math.max
-
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -25,8 +22,8 @@ data class Square(val column: Int, val row: Int) {
      * Для клетки не в пределах доски вернуть пустую строку
      */
     fun notation(): String {
-        if(!inside()) return ""
-        val column = when (column){
+        if (!inside()) return ""
+        val colum = when (column){
             1 -> "a"
             2 -> "b"
             3 -> "c"
@@ -35,9 +32,9 @@ data class Square(val column: Int, val row: Int) {
             6 -> "f"
             7 -> "g"
             8 -> "h"
-            else -> false
+            else -> ""
         }
-        return "$column$row"
+        return "$colum$row"
     }
 }
 
@@ -48,7 +45,13 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square {
+    if (notation.length != 2) throw IllegalArgumentException()
+    val column = notation[0] - 'a' + 1
+    val row = notation[1] - '0'
+    if (Square(column, row).inside()) return Square(column, row)
+    else throw IllegalArgumentException()
+}
 
 /**
  * Простая
@@ -157,10 +160,10 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
 fun kingMoveNumber(start: Square, end: Square): Int {
-    if (!start.inside() || !end.inside())
-        throw IllegalArgumentException()
-    return max(abs(start.row - end.row), abs(start.column - end.column))
-
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    val rowd = Math.abs(end.row - start.row)
+    val columnd = Math.abs(end.column - start.column)
+    return Math.max(columnd, rowd)
 }
 
 /**
@@ -177,7 +180,26 @@ fun kingMoveNumber(start: Square, end: Square): Int {
  *          kingTrajectory(Square(3, 5), Square(6, 2)) = listOf(Square(3, 5), Square(4, 4), Square(5, 3), Square(6, 2))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun kingTrajectory(start: Square, end: Square): List<Square> {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    var startR = start.row
+    var startC = start.column
+    val result = mutableListOf(start)
+    while (Square(startC, startR) != end) {
+        startR = when {
+            startR > end.row -> startR - 1
+            startR < end.row -> startR + 1
+            else -> startR
+        }
+        startC = when {
+            startC > end.column -> startC - 1
+            startC < end.column -> startC + 1
+            else -> startC
+        }
+        result.add(Square(startC, startR))
+    }
+    return result
+}
 
 /**
  * Сложная

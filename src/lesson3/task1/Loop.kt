@@ -3,6 +3,7 @@ package lesson3.task1
 
 import lesson1.task1.numberRevert
 import lesson1.task1.sqr
+import sun.nio.cs.ext.MacThai
 
 /**
  * Пример
@@ -64,14 +65,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
 fun digitNumber(n: Int): Int {
-    var d = 0
-    var number = n
-    if (number == 0) return 1
-    while (number != 0){
-        d++
-        number = number / 10
-    }
-    return d
+    var num = n
+    var c = 0
+    do {
+        num = num / 10
+        c++
+    }while (num != 0)
+    return c
 }
 /**
  * Простая
@@ -80,14 +80,17 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var f1 = 1
-    var f2 = 1
-    for (i in 3 .. n) {
-        val t = f2
-        f2 += f1
-        f1 = t
-    }
-    return f2
+    var c = 0
+    var f1 = 0
+    var f2 = 0
+    var f3 = 1
+    do {
+        if (c >= 4) f3 = f2
+        if (c >= 2) f2 = f1
+        f1 = f2 + f3
+        c++
+    }while (c !== n )
+    return f1
 }
 /**
  * Простая
@@ -96,13 +99,21 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var k = 1
-    do{
-        k ++
-    } while(k % m !== 0 || k % n !== 0 )
-    return k
+ return m * n / gcd(m,n)
 }
 
+
+fun gcd(m: Int, n: Int): Int {
+    var a = if (m > n) m else n
+    var b = if (m < n) m else n
+    while (a != 0 && b != 0) {
+        a %= b
+        a += b
+        b = a - b
+        a -= b
+    }
+    return a + b
+}
 /**
  * Простая
  *
@@ -217,9 +228,10 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Сложная
  *
  * Найти n-ю цифру последовательности из квадратов целых чисел:
- * 149162536496481100121144...
+ * 1 4 9 16 25 36 49 64 81 100 121 144 169 196...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
+
 fun squareSequenceDigit(n: Int): Int {
     var c = 0
     var num = n - 1
