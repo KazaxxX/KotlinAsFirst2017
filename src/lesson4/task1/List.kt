@@ -132,10 +132,9 @@ fun mean(list: List<Double>): Double =
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
+    var x = mean(list)
     for (i in 0 until list.size) {
-        val element = list[i]
-        element - list.sum() / list.size
-
+        list[i] -= x
     }
     return list
 }
@@ -170,11 +169,10 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    var a = 0.0
-    for (i in 0 until list.size){
-        val element = list[i]
-        element + a
-        a = element + a
+    var sum = 0.0
+    for (i in 0 until list.size) {
+        sum += list[i]
+        list[i] = sum
     }
     return list
 }
