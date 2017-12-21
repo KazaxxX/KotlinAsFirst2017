@@ -22,19 +22,10 @@ data class Square(val column: Int, val row: Int) {
      * Для клетки не в пределах доски вернуть пустую строку
      */
     fun notation(): String {
-        if (!inside()) return ""
-        val colum = when (column){
-            1 -> "a"
-            2 -> "b"
-            3 -> "c"
-            4 -> "d"
-            5 -> "e"
-            6 -> "f"
-            7 -> "g"
-            8 -> "h"
-            else -> ""
-        }
-        return "$colum$row"
+        var column = 'a' + column - 1
+
+        if (inside()) return "$column$row" else return ""
+
     }
 }
 

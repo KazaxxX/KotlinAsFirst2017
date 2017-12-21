@@ -2,6 +2,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.digitNumber
 import kotlin.coroutines.experimental.suspendCoroutine
 
 /**
@@ -262,4 +263,52 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val ones = listOf<String>("","один", "два", "три", "четыре",
+            "пять", "шесть", "семь", "восемь", "девять")
+    val extraones = listOf<String>("одна", "две")
+    val decades1 = listOf<String>("одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+            "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    val decades2 = listOf<String>("","десять", "двадцать", "тридцать", "сорок", "пятьдесят",
+            "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    val hundreds = listOf<String>("","сто", "двести", "триста", "четыреста",
+            "пятьсот", "шестьсот", "семьсот", "весемьсот", "девятьсот")
+    val thouthands = listOf<String>("тысяча", "тысячи", "тысяч")
+
+    val rnum = mutableListOf<Int>()
+    var a = 0
+    var d = n
+    for (x in 1..digitNumber(d)) {
+        a = d % 10
+        d = d / 10
+        rnum.add(a)
+    }
+    val result = mutableListOf<String>()
+
+        result.add(0,ones[rnum[0]])
+    if(rnum.size >=2)    result.add(0,decades2[rnum[1]])
+    if (rnum.size >=2) if (rnum[1] == 1) {
+        result.removeAt(0)
+        result[0] = decades1[rnum[0] - 1]
+    }
+    if (rnum.size <= 2) return result.joinToString (separator = " ")
+    result.add(0,hundreds[rnum[2]])
+    if (rnum.size <= 3) return result.joinToString (separator = " ")
+    if(rnum[3] == 1) result.add(0,thouthands[0]) else
+    if(rnum[3] in 2..4) result.add(0,thouthands[1]) else
+    result.add(0,thouthands[2])
+
+    if (rnum.size >= 4){
+        if (rnum[3] in 1..2)result.add(0,extraones[rnum[3] - 1]) else result.add(0,ones[rnum[3]])
+        if (rnum.size >= 5 ) result.add(0,decades2[rnum[4]])
+        if (rnum.size >=5)  if (rnum[4] == 1) {
+            result.removeAt(0)
+            result.removeAt(1)
+            result[0] = thouthands[2]
+            result.add(0,decades1[rnum[3] - 1])
+        }
+    }
+    if (rnum.size >= 6) result.add(0,hundreds[rnum[5]])
+
+    return result.filter { it != "" }.joinToString(separator = " ")
+}
