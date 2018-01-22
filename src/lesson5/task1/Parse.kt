@@ -94,13 +94,19 @@ fun dateDigitToStr(digital: String): String {
     val name = listOf<String>("января", "февраля", "марта", "апреля", "мая",
             "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val date = digital.split(".")
+
+    try {
+        if (date.size != 3) throw NumberFormatException()
+    } catch (e: NumberFormatException){
+        return ""
+    }
     try {
         val day = date[0].toInt()
         val mon = date[1].toInt()
         val year = date[2].toInt()
         if (day in 1 .. 31 && mon in 1 .. 12 && date.size == 3)
             return "$day ${name [mon - 1]} $year"
-    } catch (e: Exception) {
+    } catch (e: NumberFormatException) {
         return ""
     }
     return ""
