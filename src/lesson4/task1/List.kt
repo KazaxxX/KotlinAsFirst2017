@@ -301,7 +301,7 @@ fun russian(n: Int): String {
     if (rnum.size >= 4){
         if (rnum[3] in 1..2)result.add(0,extraones[rnum[3] - 1]) else result.add(0,ones[rnum[3]])
         if (rnum.size >= 5 ) result.add(0,decades2[rnum[4]])
-        if (rnum.size >=5)  if (rnum[4] == 1) {
+        if (rnum.size >=5)  if (rnum[4] == 1 && rnum[3] != 0) {
             result.removeAt(0)
             result.removeAt(1)
             result[0] = thouthands[2]
