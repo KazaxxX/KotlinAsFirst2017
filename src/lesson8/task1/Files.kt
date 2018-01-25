@@ -3,6 +3,9 @@ package lesson8.task1
 
 import java.io.File
 
+
+
+
 /**
  * Пример
  *
@@ -74,10 +77,10 @@ fun sibilants(inputName: String, outputName: String) {
     val map = mapOf<Char, Char>('я' to 'а', 'Я' to 'А', 'ы' to 'и', 'Ы' to 'И', 'ю' to 'у', 'Ю' to 'У')
     for (line in File(inputName).readLines()) {
         for (i in 0..line.length - 1) {
-            if ((line[i] in map.keys) && (line[i - 1] in "ЖжЧчШшЩщ")) writer.write(map[line[i]].toString())
+            if ((line[i] in "ЫЯЮыяю") && (line[i - 1] in "ЖжЧчШшЩщ")) writer.write(map[line[i]].toString())
             else writer.write(line[i].toString())
         }
-        writer.newLine()
+        writer.write("\n")
     }
     writer.close()
 }
